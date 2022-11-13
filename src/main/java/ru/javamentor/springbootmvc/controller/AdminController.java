@@ -56,7 +56,7 @@ public class AdminController {
         List<Role> listR = userService.listByRole(listS);
         user.setRoles(listR);
         userService.add(user);
-        return "redirect:/admin";
+        return "redirect:/admin/users";
     }
     //------------------------------------------------------------------------------------------------------------------
     @GetMapping("edit/{id}")

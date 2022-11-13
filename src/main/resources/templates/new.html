@@ -6,26 +6,25 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/admin/new}" th:object="${user}">
-    <label for="firstname">Enter firstname:</label>
-    <input type="text" th:field="*{firstname}" id="firstname" placeholder="firstname">
+    <label for="firstname">Введите имя: </label>
+    <input type="text" th:field="*{firstname}" id="firstname" placeholder="Имя">
     <br/>
-    <label for="lastname">Enter lastname:</label>
-    <input type="text" th:field="*{lastname}" id="lastname" placeholder="lastname">
+    <label for="lastname">Введите фамилию: </label>
+    <input type="text" th:field="*{lastname}" id="lastname" placeholder="Фамилия">
     <br/>
-    <label for="age">Enter age</label>
-    <input type="text" th:field="*{age}" id="age" placeholder="age">
+    <label for="age">Введите возраст: </label>
+    <input type="text" th:field="*{age}" id="age" placeholder="Возраст">
     <br/>
-    <label for="email">Enter email</label>
-    <input type="text" th:field="*{email}" id="email" placeholder="email">
+    <label for="email">Введите почту: </label>
+    <input type="text" th:field="*{email}" id="email" placeholder="Почта">
     <br/>
-    <label for="password">Enter password:</label>
-    <input type="text" th:field="*{password}" id="password" placeholder="password">
+    <label for="password">Введите пароль: </label>
+    <input type="text" th:field="*{password}" id="password" placeholder="Пароль">
     <br/>
-    <label for="username">Enter username:</label>
-    <input type="text" th:field="*{username}" id="username" placeholder="username">
-    <br/>
+    <label for="username">Введите логин: </label>
+    <input type="text" th:field="*{username}" id="username" placeholder="Логин">
     <p>
-        <label>Roles
+        <label>Права доступа
             <input type="checkbox" name="listRoles"
                    th:each="rol : ${listRoles}"
                    th:text="${rol.getNoPrefix()}"
@@ -34,11 +33,13 @@
             />
         </label>
     </p>
-    <br/>
-    <input type="submit" value="Create User">
+    <input type="submit" value="Создать">
 </form>
+<br/>
 <form th:action="@{/logout}" th:method="POST">
-    <input type="submit" value="Sign Out"/>
+    <input type="submit" value="Выйти из системы"/>
 </form>
+<br/>
+<h4><a href="/admin/users">Список пользователей</a></h4>
 </body>
 </html>

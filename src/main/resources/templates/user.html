@@ -5,22 +5,32 @@
     <title>User</title>
 </head>
 <body>
-<h1>User </h1>
+<h1>Профиль пользователя</h1>
 <div>
     <table border="1">
         <tr>
             <th>id</th>
-            <th>password</th>
-            <th>username</th>
+            <th>имя</th>
+            <th>фамилия</th>
+            <th>возраст</th>
+            <th>пароль</th>
+            <th>логин</th>
         </tr>
         <tr>
             <td th:utext="${user.getId()}">id</td>
-            <td th:utext="${user.getPassword()}">password</td>
-            <td th:utext="${user.getUsername()}">username</td>
+            <td th:utext="${user.getFirstname()}">имя</td>
+            <td th:utext="${user.getLastname()}">фамилия</td>
+            <td th:utext="${user.getAge()}">возраст</td>
+            <td th:utext="${user.getPassword()}">пароль</td>
+            <td th:utext="${user.getUsername()}">логин</td>
         </tr>
     </table>
     <br/>
-    <a href="/logout">Logout</a>
+    <form th:action="@{/logout}" th:method="POST">
+        <input type="submit" value="Выйти из системы"/>
+    </form>
+    <br/>
+    <h4><a href="/admin/users">Список пользователей(только админам)</a></h4>
 </div>
 </body>
 </html>
