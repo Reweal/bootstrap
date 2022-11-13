@@ -57,25 +57,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
     }
 
-    @PostConstruct
-    public void init() {
-        Role role1 = new Role("ROLE_ADMIN");
-        Role role2 = new Role("ROLE_USER");
-
-        userService.addRole(role1);
-        userService.addRole(role2);
-
-        List<Role> roleAdmin = new ArrayList<>();
-        List<Role> roleUser = new ArrayList<>();
-
-        roleAdmin.add(role1);
-        roleUser.add(role2);
-
-        User user2 = new User(2,"Misha", "Kray", "22", "email@mail.ru", "user", "user", roleUser);
-        User user1 = new User(2,"Dasha", "Kiosse", "19", "daria@mail.ru", "admin", "admin", roleAdmin);
-
-        userService.add(user1);
-        userService.add(user2);
-    }
+//    @PostConstruct
+//    public void init() {
+//        Role role1 = new Role("ROLE_ADMIN");
+//        Role role2 = new Role("ROLE_USER");
+//
+//        userService.addRole(role1);
+//        userService.addRole(role2);
+//
+//        List<Role> roleAdmin = new ArrayList<>();
+//        List<Role> roleUser = new ArrayList<>();
+//
+//        roleAdmin.add(role1);
+//        roleUser.add(role2);
+//
+//        User user2 = new User(2,"Misha", "Kray", "22", "email@mail.ru", "user", "user", roleUser);
+//        User user1 = new User(1,"Dasha", "Kiosse", "19", "daria@mail.ru", "admin", "admin", roleAdmin);
+//
+//        userService.add(user1);
+//        userService.add(user2);
+//    }
 
 }
