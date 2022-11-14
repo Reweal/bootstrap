@@ -11,6 +11,7 @@ import ru.javamentor.springbootmvc.service.UserService;
 import ru.javamentor.springbootmvc.service.UserServiceImpl;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -53,7 +54,7 @@ public class AdminController {
     @PostMapping("/new")
     public String create(@ModelAttribute("user") User user) {
         List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
-        List<Role> listR = userService.listByRole(listS);
+        Set<Role> listR = userService.listByRole(listS);
         user.setRoles(listR);
         userService.add(user);
         return "redirect:/admin/users";
@@ -61,7 +62,6 @@ public class AdminController {
     //------------------------------------------------------------------------------------------------------------------
     @GetMapping("edit/{id}")
     public String edit(@PathVariable("id") int id, Model model) {
-        User user = userService.findById(id);
         model.addAttribute("user", userService.findById(id));
         model.addAttribute("listRoles", userService.listRoles());
         return "edit";
@@ -73,7 +73,7 @@ public class AdminController {
 //            return "edit";
 //        }
         List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
-        List<Role> listR = userService.listByRole(listS);
+        Set<Role> listR = userService.listByRole(listS);
         user.setRoles(listR);
         userService.update(user);
         return "redirect:/admin";

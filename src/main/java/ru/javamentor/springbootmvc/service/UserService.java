@@ -5,13 +5,14 @@ import ru.javamentor.springbootmvc.model.Role;
 import ru.javamentor.springbootmvc.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService extends UserDetailsService {
     boolean addRole(Role role);
     Role findByNameRole(String name);
     List<Role> listRoles();
     Role findByIdRole(int id);
-    List<Role> listByRole(List<String> name);
+    Set<Role> listByRole(List<String> name);
     boolean add(User user);
     List<User> listUsers();
     void delete(int id);

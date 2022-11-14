@@ -12,7 +12,9 @@ import ru.javamentor.springbootmvc.dao.UserDao;
 import ru.javamentor.springbootmvc.model.Role;
 import ru.javamentor.springbootmvc.model.User;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -66,8 +68,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Role> listByRole(List<String> name) {
-        return roleDao.listByName(name);
+    public Set<Role> listByRole(List<String> name) {
+        Set<Role> userRoles = new HashSet<>();
+        for (Role role : roleDao.listByName(name)) {
+            userRoles.add(findByNameRole(role.getRole()));
+        }
+        return userRoles;
     }
 
     @Override
@@ -92,8 +98,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) {
         User userPrimary = findById(user.getId());
-        System.out.println(userPrimary);
-        System.out.println(user);
         if(!userPrimary.getPassword().equals(user.getPassword())) {
             user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         }
