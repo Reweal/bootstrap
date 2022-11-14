@@ -78,8 +78,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean add(User user) {
-        User userPrimary = userDao.findByName(user.getUsername());
-        if(userPrimary != null) {return false;}
+//        User userPrimary = userDao.findByName(user.getUsername());
+//        if(userPrimary != null) {return false;}
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         userDao.add(user);
         return true;
@@ -105,6 +105,10 @@ public class UserServiceImpl implements UserService {
         if(!userPrimary.getPassword().equals(user.getPassword())) {
             user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         }
+        Set<Role> role = new HashSet<>();
+        role.add(roleDao.listRoles().get(0));
+        user.setRoles(role);
+        user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         userDao.update(user);
     }
 

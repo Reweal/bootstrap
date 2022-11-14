@@ -72,11 +72,11 @@ public class AdminController {
 //        if (bindingResult.hasErrors()) {
 //            return "edit";
 //        }
-        List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
-        Set<Role> listR = userService.listByRole(listS);
-        user.setRoles(listR);
+//        List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
+//        Set<Role> listR = userService.listByRole(listS);
+//        user.setRoles(listR);
         userService.update(user);
-        return "redirect:/admin";
+        return "redirect:/admin/users";
     }
 
     //------------------------------------------------------------------------------------------------------------------

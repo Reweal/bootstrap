@@ -27,19 +27,6 @@
     <label for="username">Enter username:</label>
     <input type="text" th:field="*{username}" id="username" placeholder="Логин">
     <br/>
-    <th:block th:each="msg : ${user.getRoles()}">
-        <li th:text="${msg.getNoPrefix()}"></li>
-    </th:block>
-    <p>
-        <label>Roles
-            <input type="checkbox" name="listRoles"
-                   th:each="rol : ${listRoles}"
-                   th:text="${rol.getNoPrefix()}"
-                   th:value="${rol.role}"
-                   th:field="*{roles}"
-            />
-        </label>
-    </p>
 
     <input type="submit" value="Обновить">
 </form>
