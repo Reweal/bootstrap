@@ -69,11 +69,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<Role> listByRole(List<String> name) {
-        Set<Role> userRoles = new HashSet<>();
+        Set<Role> listRoles = new HashSet<>();
         for (Role role : roleDao.listByName(name)) {
-            userRoles.add(findByNameRole(role.getRole()));
+            listRoles.add(role);
         }
-        return userRoles;
+        return listRoles;
     }
 
     @Override
@@ -86,8 +86,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> listUsers() {
-        return userDao.listUsers();
+    public Set<User> listUsers() {
+        Set<User> setUsers = new HashSet<>();
+        for (User user : userDao.listUsers()) {
+            setUsers.add(user);
+        }
+        return setUsers;
     }
 
     @Override

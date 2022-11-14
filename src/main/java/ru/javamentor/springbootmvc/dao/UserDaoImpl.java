@@ -13,7 +13,6 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-@Transactional
 public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
@@ -22,7 +21,7 @@ public class UserDaoImpl implements UserDao {
     public User findByName(String username) {
         return entityManager.createQuery("select u from User u join fetch u.roles where u.username = :name", User.class)
                 .setParameter("name", username)
-                .getSingleResult();
+                .getResultList().stream().findAny().orElse(null);
     }
 
     public  void delete(int id) {
