@@ -19,8 +19,8 @@ public class UserDaoImpl implements UserDao {
     private EntityManager entityManager;
 
     public User findByName(String username) {
-        return entityManager.createQuery("select u from User u join fetch u.roles where u.username = :name", User.class)
-                .setParameter("name", username)
+        return entityManager.createQuery("select u from User u join fetch u.roles where u.username = :id", User.class)
+                .setParameter("id", username)
                 .getResultList().stream().findAny().orElse(null);
     }
 

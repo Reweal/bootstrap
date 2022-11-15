@@ -14,7 +14,7 @@ public interface UserService extends UserDetailsService {
     Role findByIdRole(int id);
     Set<Role> listByRole(List<String> name);
     boolean add(User user);
-    Set<User> listUsers();
+    List<User> listUsers();
     void delete(int id);
     void update(User user);
     User findById(int id);

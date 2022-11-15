@@ -62,7 +62,8 @@ public class AdminController {
     //------------------------------------------------------------------------------------------------------------------
     @GetMapping("edit/{id}")
     public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.findById(id));
+        User user = userService.findById(id);
+        model.addAttribute("user", userService.findByUsername(userService.findById(id).getUsername()));
         model.addAttribute("listRoles", userService.listRoles());
         return "edit";
     }
@@ -72,9 +73,9 @@ public class AdminController {
 //        if (bindingResult.hasErrors()) {
 //            return "edit";
 //        }
-//        List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
-//        Set<Role> listR = userService.listByRole(listS);
-//        user.setRoles(listR);
+        List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
+        Set<Role> listR = userService.listByRole(listS);
+        user.setRoles(listR);
         userService.update(user);
         return "redirect:/admin/users";
     }

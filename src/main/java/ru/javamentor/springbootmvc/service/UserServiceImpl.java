@@ -69,29 +69,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<Role> listByRole(List<String> name) {
-        Set<Role> listRoles = new HashSet<>();
-        for (Role role : roleDao.listByName(name)) {
-            listRoles.add(role);
-        }
-        return listRoles;
+        Set<Role> roles = new HashSet<>(roleDao.listByName(name));
+        return roles;
     }
 
     @Override
     public boolean add(User user) {
-//        User userPrimary = userDao.findByName(user.getUsername());
-//        if(userPrimary != null) {return false;}
+        User userPrimary = userDao.findByName(user.getUsername());
+        if(userPrimary != null) {return false;}
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         userDao.add(user);
         return true;
     }
 
     @Override
-    public Set<User> listUsers() {
-        Set<User> setUsers = new HashSet<>();
-        for (User user : userDao.listUsers()) {
-            setUsers.add(user);
-        }
-        return setUsers;
+    public List<User> listUsers() {
+        return userDao.listUsers();
     }
 
     @Override
@@ -102,28 +95,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) {
         User userPrimary = findById(user.getId());
+        System.out.println(userPrimary);
+        System.out.println(user);
         if(!userPrimary.getPassword().equals(user.getPassword())) {
             user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         }
-        Set<Role> role = new HashSet<>();
-        role.add(roleDao.listRoles().get(0));
-        user.setRoles(role);
         userDao.update(user);
     }
-
     @Override
     public User findById(int id) {
         return userDao.findById(id);
     }
-
     @Override
     public User findByUsername(String userName) {
         return userDao.findByName(userName);
     }
-
-//    private Collection<? extends GrantedAuthority> ath(Collection<Role> roles) {
-//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRole()))
-//                .collect(Collectors.toList());
-//    }
 }
 
