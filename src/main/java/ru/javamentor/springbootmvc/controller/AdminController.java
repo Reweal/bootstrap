@@ -1,6 +1,7 @@
 package ru.javamentor.springbootmvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +11,7 @@ import ru.javamentor.springbootmvc.model.User;
 import ru.javamentor.springbootmvc.service.UserService;
 import ru.javamentor.springbootmvc.service.UserServiceImpl;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,16 +27,19 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public String home(Model model) {
-        model.addAttribute("users", userService.listUsers());
-        return "index";
-    }
+//    @GetMapping
+//    public String home(Model model) {
+//        model.addAttribute("users", userService.listUsers());
+////        model.addAttribute("user", userService.findByUsername(userService.findById(user.getId()).getUsername()));
+//        return "index";
+//    }
 
     //------------------------------------------------------------------------------------------------------------------
-    @GetMapping(value = "/users")
-    public String getAllUsers(Model model) {
+    @GetMapping()
+    public String getAllUsers(Model model, Principal principal) {
         model.addAttribute("users", userService.listUsers());
+        UserDetails user = userService.loadUserByUsername(principal.getName());
+        model.addAttribute("user", user);
         return "users";
     }
 
@@ -57,7 +62,7 @@ public class AdminController {
         Set<Role> listR = userService.listByRole(listS);
         user.setRoles(listR);
         userService.add(user);
-        return "redirect:/admin/users";
+        return "redirect:/admin";
     }
     //------------------------------------------------------------------------------------------------------------------
     @GetMapping("edit/{id}")
@@ -77,13 +82,13 @@ public class AdminController {
         Set<Role> listR = userService.listByRole(listS);
         user.setRoles(listR);
         userService.update(user);
-        return "redirect:/admin/users";
+        return "redirect:/admin";
     }
 
     //------------------------------------------------------------------------------------------------------------------
     @GetMapping("delete/{id}")
     public String deleteUser(@PathVariable("id") int id) {
         userService.delete(id);
-        return "redirect:/admin/users";
+        return "redirect:/admin";
     }
 }
