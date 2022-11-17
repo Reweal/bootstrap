@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "users")
@@ -77,6 +78,12 @@ public class User implements UserDetails {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public StringBuilder getRolesToString() {
+        StringBuilder str = new StringBuilder();
+            roles.forEach(role -> str.append(role).append(" "));
+        return str;
     }
 
     public void setRoles(Set<Role> roles) {
