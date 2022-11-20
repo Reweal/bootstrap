@@ -51,66 +51,68 @@
                 <div class="card-header">
                     <h4 class="card-title br-light">Add new user</h4>
                 </div>
-                <div class="card-body text-center container">
-                    <form style="width:390px; margin: auto" th:method="POST" th:action="@{/admin/new}" th:object="${user}">
-                        <label for="firstname"><b>First name</b></label>
-                        <input type="text" class="form-control" th:field="${user.firstname}" id="firstname" placeholder="First name">
-                        <div class="invalid-feedback">
-                            Please enter a valid firstname for shipping updates.
-                        </div>
-                        <br/>
+                <div class="card-body">
+                    <div class="text-center container">
+                        <form style="width:390px; margin: auto" th:method="POST" th:action="@{/admin/new}" th:object="${user}">
+                            <label for="firstname"><b>First name</b></label>
+                            <input type="text" class="form-control" th:field="${user.firstname}" id="firstname" placeholder="First name">
+                            <div class="invalid-feedback">
+                                Please enter a valid firstname for shipping updates.
+                            </div>
+                            <br/>
 
-                        <label for="lastname"><b>Last name</b></label>
-                        <input type="text" class="form-control" th:field="${user.lastname}" id="lastname" placeholder="Last name">
-                        <div class="invalid-feedback">
-                            Please enter a valid lastname for shipping updates.
-                        </div>
-                        <br/>
+                            <label for="lastname"><b>Last name</b></label>
+                            <input type="text" class="form-control" th:field="${user.lastname}" id="lastname" placeholder="Last name">
+                            <div class="invalid-feedback">
+                                Please enter a valid lastname for shipping updates.
+                            </div>
+                            <br/>
 
-                        <label for="newage"><b>Age</b></label>
-                        <input type="text" class="form-control" th:field="${user.age}" id="newage" placeholder="Age">
-                        <div class="invalid-feedback">
-                            Please enter a valid age for shipping updates.
-                        </div>
-                        <br/>
+                            <label for="newage"><b>Age</b></label>
+                            <input type="text" class="form-control" th:field="${user.age}" id="newage" placeholder="Age">
+                            <div class="invalid-feedback">
+                                Please enter a valid age for shipping updates.
+                            </div>
+                            <br/>
 
-                        <label for="newemail"><b>Email</b></label>
-                        <input type="text" class="form-control" th:field="${user.email}" id="newemail" placeholder="Email">
-                        <div class="invalid-feedback">
-                            Please enter a valid email for shipping updates.
-                        </div>
-                        <br/>
+                            <label for="newemail"><b>Email</b></label>
+                            <input type="text" class="form-control" th:field="${user.email}" id="newemail" placeholder="Email">
+                            <div class="invalid-feedback">
+                                Please enter a valid email for shipping updates.
+                            </div>
+                            <br/>
 
-                        <label for="password"><b>Password</b></label>
-                        <input type="text" class="form-control" th:field="${user.password}" id="password" placeholder="Password">
-                        <div class="invalid-feedback">
-                            Please enter a valid password for shipping updates.
-                        </div>
-                        <br/>
+                            <label for="password"><b>Password</b></label>
+                            <input type="text" class="form-control" th:field="${user.password}" id="password" placeholder="Password">
+                            <div class="invalid-feedback">
+                                Please enter a valid password for shipping updates.
+                            </div>
+                            <br/>
 
-                        <label for="username"><b>Username</b></label>
-                        <input type="text" class="form-control" th:field="${user.username}" id="username" placeholder="Username">
-                        <div class="invalid-feedback">
-                            Please enter a valid username for shipping updates.
-                        </div>
-                        <br/>
-                        <div class="form-group">
-                            <label for="roles"><b>Roles</b></label>
-                            <select class="custom-select"
-                                    name="roles"
-                                    id="roles"
-                                    multiple="multiple"
-                                    size="2">
-                                <option th:each="rol : ${listRoles}"
-                                        th:text="${rol.getNoPrefix()}"
-                                        th:value="${rol.role}"
-                                        th:field="*{roles}"/>
-                            </select>
-                        </div>
+                            <label for="username"><b>Username</b></label>
+                            <input type="text" class="form-control" th:field="${user.username}" id="username" placeholder="Username">
+                            <div class="invalid-feedback">
+                                Please enter a valid username for shipping updates.
+                            </div>
+                            <br/>
+                            <div class="form-group">
+                                <label for="roles"><b>Roles</b></label>
+                                <select class="custom-select"
+                                        name="roles"
+                                        id="roles"
+                                        multiple="multiple"
+                                        size="2">
+                                    <option th:each="rol : ${listRoles}"
+                                            th:text="${rol.getNoPrefix()}"
+                                            th:value="${rol.role}"
+                                            th:field="*{roles}"/>
+                                </select>
+                            </div>
 
-                        <input type="submit" class="btn btn-success" value="Add new user">
+                            <input type="submit" class="btn btn-success" value="Add new user">
 
-                    </form>
+                        </form>
+                    </div>
                     <br/>
                 </div>
             </div>

@@ -55,26 +55,31 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    //------------------------------------------------------------------------------------------------------------------
-    @GetMapping("edit/{id}")
-    public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.findByUsername(userService.findById(id).getUsername()));
-        model.addAttribute("listRoles", userService.listRoles());
-        return "edit";
+    @PostMapping("delete/{id}")
+    public String deleteUser(@PathVariable("id") int id) {
+        userService.delete(id);
+        return "redirect:/admin";
     }
-
-//    @PostMapping("edit")
-//    public String update(@ModelAttribute("user") User user) {
-////        if (bindingResult.hasErrors()) {
-////            return "edit";
-////        }
-//        List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
-//        Set<Role> listR = userService.listByRole(listS);
-//        user.setRoles(listR);
-//        userService.update(user);
-//        return "redirect:/admin";
+    //------------------------------------------------------------------------------------------------------------------
+//
+//    @GetMapping("edit/{id}")
+//    public String edit(@PathVariable("id") int id, Model model) {
+//        model.addAttribute("user", userService.findByUsername(userService.findById(id).getUsername()));
+//        model.addAttribute("listRoles", userService.listRoles());
+//        return "edit";
 //    }
-
+////    @PostMapping("edit")
+////    public String update(@ModelAttribute("user") User user) {
+//////        if (bindingResult.hasErrors()) {
+//////            return "edit";
+//////        }
+////        List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
+////        Set<Role> listR = userService.listByRole(listS);
+////        user.setRoles(listR);
+////        userService.update(user);
+////        return "redirect:/admin";
+//
+////    }
     //------------------------------------------------------------------------------------------------------------------
     @GetMapping(value = "/new")
     public String newUser(Model model, Principal principal) {
@@ -84,6 +89,7 @@ public class AdminController {
         model.addAttribute("user", new User());
         return "new";
     }
+
     @PostMapping("/new")
     public String create(@ModelAttribute("user") User user) {
         List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
@@ -92,11 +98,5 @@ public class AdminController {
         userService.add(user);
         return "redirect:/admin";
     }
-
     //------------------------------------------------------------------------------------------------------------------
-    @GetMapping("delete/{id}")
-    public String deleteUser(@PathVariable("id") int id) {
-        userService.delete(id);
-        return "redirect:/admin";
-    }
 }

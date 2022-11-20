@@ -205,42 +205,142 @@
                                     </div>
 
                                 </td>
-
                                 <td>
-                                    <a class="btn btn-danger" th:href="@{admin/delete/{id}(id=${man.id})}">Удалить</a>
-                                </td>
+                                    <!-- Кнопка открывающая модальное окно удаления пользователя -->
+                                    <button type="button" class="btn btn-danger"
+                                            data-toggle="modal"
+                                            th:data-target="${'#delete' + man.id}">Delete
+                                    </button>
 
+                                    <!-- Модальное окно удаления пользователя -->
+                                    <div class="modal fade"
+                                         th:id="'delete' + ${man.id}"
+                                         tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Delete user</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="text-center"
+                                                          style="width: 220px; margin: auto"
+                                                          th:method="POST"
+                                                          th:action="@{/admin/delete/{id}(id=${man.id})}"
+                                                          th:object="${man}"
+                                                          th:id="${'deleteForm' + man.id}">
+                                                        <!-- ID -->
+                                                        <div class="form-group">
+                                                            <label for="deleteFirstname"
+                                                                   class="col-form-label font-weight-bold">First name
+                                                            </label>
+                                                            <input type="text"
+                                                                   style="height:30px"
+                                                                   class="form-control"
+                                                                   th:value="${man.firstname}"
+                                                                   name="deleteFirstname"
+                                                                   id="deleteFirstname"
+                                                                   placeholder="First name" readonly>
+                                                            <br/>
+                                                        </div>
 
+                                                        <!-- LASTNAME -->
+                                                        <label for="deleteLastname"><b>Last name</b></label>
+                                                        <input type="text"
+                                                               style="height:30px"
+                                                               class="form-control"
+                                                               th:value="${man.lastname}"
+                                                               name="deleteLastname"
+                                                               id="deleteLastname"
+                                                               placeholder="Last name" readonly>
+                                                        <br/>
+
+                                                        <!-- AGE -->
+                                                        <label for="deleteAge"><b>Age</b></label>
+                                                        <input type="text"
+                                                               style="height:30px"
+                                                               class="form-control"
+                                                               th:value="${man.age}"
+                                                               name="deleteAge"
+                                                               id="deleteAge"
+                                                               placeholder="Age" readonly>
+                                                        <br/>
+
+                                                        <!-- EMAIL -->
+                                                        <label for="deleteEmail"><b>Email</b></label>
+                                                        <input type="text"
+                                                               style="height:30px"
+                                                               class="form-control"
+                                                               th:value="${man.email}"
+                                                               name="deleteEmail"
+                                                               id="deleteEmail"
+                                                               placeholder="Email" readonly>
+                                                        <br/>
+
+                                                        <!-- PASSWORD -->
+                                                        <label for="deletePassword"><b>Password</b></label>
+                                                        <input type="password"
+                                                               style="height:30px"
+                                                               class="form-control"
+                                                               th:value="${man.password}"
+                                                               name="deletePassword"
+                                                               id="deletePassword"
+                                                               placeholder="Password" readonly>
+                                                        <br/>
+
+                                                        <!-- USERNAME -->
+                                                        <label for="deleteUsername"><b>Username</b></label>
+                                                        <input type="text"
+                                                               style="height:30px"
+                                                               class="form-control"
+                                                               th:value="${man.username}"
+                                                               name="deleteUsername"
+                                                               id="deleteUsername"
+                                                               placeholder="Username" readonly>
+                                                        <br/>
+
+                                                        <!-- ROLES -->
+                                                        <div class="form-group">
+                                                            <fieldset disabled>
+                                                                <label for="deleteRoles" class="col-form-label font-weight-bold">Roles</label>
+                                                                <select class="form-control form-control-sm"
+                                                                        name="deleteRoles"
+                                                                        id="deleteRoles"
+                                                                        multiple="multiple"
+                                                                        size="2" required>
+                                                                    <option th:each="rol : ${listRoles}"
+                                                                            th:text="${rol.toString()}"
+                                                                            th:value="${rol.role}">
+                                                                        <th:block
+                                                                                th:text="${rol.toString()}">
+                                                                        </th:block>
+                                                                    </option>
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                    </form>
+                                                    <br/>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                            class="btn btn-secondary"
+                                                            data-dismiss="modal">Close
+                                                    </button>
+                                                    <input type="submit"
+                                                           th:form="${'deleteForm' + man.id}"
+                                                           class="btn btn-danger"
+                                                           value="Delete"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Запустить модальное окно демо
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
