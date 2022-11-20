@@ -56,7 +56,8 @@ public class AdminController {
     public String newUser(Model model, Principal principal) {
         model.addAttribute("listRoles", userService.listRoles());
         UserDetails user = userService.loadUserByUsername(principal.getName());
-        model.addAttribute("user", user);
+        model.addAttribute("userCurrent", user);
+        model.addAttribute("user", new User());
         return "new";
     }
     @PostMapping("/new")
