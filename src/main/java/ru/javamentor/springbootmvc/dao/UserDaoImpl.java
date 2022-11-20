@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     public List<User> listUsers() {
-        return entityManager.createQuery("select s from User s", User.class).getResultList();
+        return entityManager.createQuery("select s from User s join fetch s.roles", User.class).getResultList();
     }
 
     public User findById(int id) {

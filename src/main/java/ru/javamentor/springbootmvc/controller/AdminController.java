@@ -40,6 +40,7 @@ public class AdminController {
         model.addAttribute("users", userService.listUsers());
         UserDetails user = userService.loadUserByUsername(principal.getName());
         model.addAttribute("user", user);
+        model.addAttribute("listRoles", userService.listRoles());
         return "users";
     }
 
@@ -52,8 +53,10 @@ public class AdminController {
     //------------------------------------------------------------------------------------------------------------------
 
     @GetMapping(value = "/new")
-    public String newUser(@ModelAttribute("user") User user, Model model) {
+    public String newUser(Model model, Principal principal) {
         model.addAttribute("listRoles", userService.listRoles());
+        UserDetails user = userService.loadUserByUsername(principal.getName());
+        model.addAttribute("user", user);
         return "new";
     }
     @PostMapping("/new")
@@ -67,7 +70,6 @@ public class AdminController {
     //------------------------------------------------------------------------------------------------------------------
     @GetMapping("edit/{id}")
     public String edit(@PathVariable("id") int id, Model model) {
-        User user = userService.findById(id);
         model.addAttribute("user", userService.findByUsername(userService.findById(id).getUsername()));
         model.addAttribute("listRoles", userService.listRoles());
         return "edit";

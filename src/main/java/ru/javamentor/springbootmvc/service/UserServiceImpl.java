@@ -15,6 +15,7 @@ import ru.javamentor.springbootmvc.model.User;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -95,11 +96,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) {
         User userPrimary = findById(user.getId());
-        System.out.println(userPrimary);
-        System.out.println(user);
         if(!userPrimary.getPassword().equals(user.getPassword())) {
             user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         }
+        List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
+        Set<Role> listR = listByRole(listS);
+        user.setRoles(listR);
         userDao.update(user);
     }
     @Override
