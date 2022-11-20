@@ -13,6 +13,7 @@ import ru.javamentor.springbootmvc.model.Role;
 import ru.javamentor.springbootmvc.model.User;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -59,8 +60,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Role> listRoles() {
-        return roleDao.listRoles();
+    public LinkedHashSet<Role> listRoles() {
+        return new LinkedHashSet<>(roleDao.listRoles());
     }
 
     @Override
@@ -70,7 +71,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<Role> listByRole(List<String> name) {
-        Set<Role> roles = new HashSet<>(roleDao.listByName(name));
+        Set<Role> roles = new LinkedHashSet<>(roleDao.listByName(name));
         return roles;
     }
 
@@ -84,7 +85,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> listUsers() {
+    public Set<User> listUsers() {
         return userDao.listUsers();
     }
 

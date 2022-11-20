@@ -52,7 +52,7 @@
                     <h4 class="card-title br-light">Add new user</h4>
                 </div>
                 <div class="card-body text-center container">
-                    <form th:method="POST" th:action="@{/admin/new}" th:object="${user}">
+                    <form style="width:390px; margin: auto" th:method="POST" th:action="@{/admin/new}" th:object="${user}">
                         <label for="firstname"><b>First name</b></label>
                         <input type="text" class="form-control" th:field="${user.firstname}" id="firstname" placeholder="First name">
                         <div class="invalid-feedback">
@@ -96,7 +96,11 @@
                         <br/>
                         <div class="form-group">
                             <label for="roles"><b>Roles</b></label>
-                            <select class="custom-select" name="roles" id="roles" multiple="multiple" size="2">
+                            <select class="custom-select"
+                                    name="roles"
+                                    id="roles"
+                                    multiple="multiple"
+                                    size="2">
                                 <option th:each="rol : ${listRoles}"
                                         th:text="${rol.getNoPrefix()}"
                                         th:value="${rol.role}"

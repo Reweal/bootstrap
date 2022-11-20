@@ -14,9 +14,9 @@
 <body>
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-2" href="/admin">
-        <span class="font-weight-bold" th:utext="${user.username}">USERNAME</span>
+        <span class="font-weight-bold" th:utext="${userCurrent.username}">USERNAME</span>
         <span class="font-weight-normal"> with roles: </span>
-        <span class="font-weight-normal" th:text="${user.getRolesToString()}">ROLE</span>
+        <span class="font-weight-normal" th:text="${userCurrent.getRolesToString()}">ROLE</span>
     </a>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-right">
@@ -177,11 +177,11 @@
                                                                     multiple="multiple"
                                                                     size="2" required>
                                                                 <option th:each="rol : ${listRoles}"
-                                                                        th:text="${rol.getNoPrefix()}"
-                                                                        th:value="${rol.getId()}"
+                                                                        th:text="${rol.toString()}"
+                                                                        th:value="${rol.role}"
                                                                         th:selected="rol">
                                                                     <th:block
-                                                                            th:text="${rol.getNoPrefix()}">
+                                                                            th:text="${rol.toString()}">
                                                                     </th:block>
                                                                 </option>
                                                             </select>
@@ -206,8 +206,9 @@
 
                                 </td>
 
-
-                                <td><a class="btn btn-danger" th:href="@{admin/delete/{id}(id=${man.id})}">Удалить</a></td>
+                                <td>
+                                    <a class="btn btn-danger" th:href="@{admin/delete/{id}(id=${man.id})}">Удалить</a>
+                                </td>
 
 
                             </tr>

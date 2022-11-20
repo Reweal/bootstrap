@@ -80,9 +80,8 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public StringBuilder getRolesToString() {
-        StringBuilder str = new StringBuilder();
-            roles.forEach(role -> str.append(role).append(" "));
+    public String getRolesToString() {
+        String str = roles.toString().replaceAll("^\\[|\\]$", "");
         return str;
     }
 

@@ -10,7 +10,10 @@ import ru.javamentor.springbootmvc.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -38,8 +41,8 @@ public class UserDaoImpl implements UserDao {
         return true;
     }
 
-    public List<User> listUsers() {
-        return entityManager.createQuery("select s from User s join fetch s.roles", User.class).getResultList();
+    public Set<User> listUsers() {
+        return new LinkedHashSet<>(entityManager.createQuery("select s from User s join fetch s.roles", User.class).getResultList());
     }
 
     public User findById(int id) {

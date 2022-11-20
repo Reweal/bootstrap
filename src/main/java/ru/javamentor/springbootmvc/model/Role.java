@@ -53,8 +53,6 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        String prefix = "ROLE_";
-//        return role.substring(prefix.length());
-        return getRole().substring(prefix.length());
+        return getRole().replaceAll("ROLE_", "");
     }
 }

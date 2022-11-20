@@ -27,19 +27,12 @@ public class AdminController {
         this.userService = userService;
     }
 
-//    @GetMapping
-//    public String home(Model model) {
-//        model.addAttribute("users", userService.listUsers());
-////        model.addAttribute("user", userService.findByUsername(userService.findById(user.getId()).getUsername()));
-//        return "index";
-//    }
-
     //------------------------------------------------------------------------------------------------------------------
     @GetMapping()
     public String getAllUsers(Model model, Principal principal) {
         model.addAttribute("users", userService.listUsers());
         UserDetails user = userService.loadUserByUsername(principal.getName());
-        model.addAttribute("user", user);
+        model.addAttribute("userCurrent", user);
         model.addAttribute("listRoles", userService.listRoles());
         return "users";
     }
@@ -50,8 +43,39 @@ public class AdminController {
         return "user";
     }
 
-    //------------------------------------------------------------------------------------------------------------------
+    @PostMapping("edit/{id}")
+    public String edit(@ModelAttribute("user") User user) {
+//        if (bindingResult.hasErrors()) {
+//            return "edit";
+//        }
+        List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
+        Set<Role> listR = userService.listByRole(listS);
+        user.setRoles(listR);
+        userService.update(user);
+        return "redirect:/admin";
+    }
 
+    //------------------------------------------------------------------------------------------------------------------
+    @GetMapping("edit/{id}")
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userService.findByUsername(userService.findById(id).getUsername()));
+        model.addAttribute("listRoles", userService.listRoles());
+        return "edit";
+    }
+
+//    @PostMapping("edit")
+//    public String update(@ModelAttribute("user") User user) {
+////        if (bindingResult.hasErrors()) {
+////            return "edit";
+////        }
+//        List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
+//        Set<Role> listR = userService.listByRole(listS);
+//        user.setRoles(listR);
+//        userService.update(user);
+//        return "redirect:/admin";
+//    }
+
+    //------------------------------------------------------------------------------------------------------------------
     @GetMapping(value = "/new")
     public String newUser(Model model, Principal principal) {
         model.addAttribute("listRoles", userService.listRoles());
@@ -66,25 +90,6 @@ public class AdminController {
         Set<Role> listR = userService.listByRole(listS);
         user.setRoles(listR);
         userService.add(user);
-        return "redirect:/admin";
-    }
-    //------------------------------------------------------------------------------------------------------------------
-    @GetMapping("edit/{id}")
-    public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.findByUsername(userService.findById(id).getUsername()));
-        model.addAttribute("listRoles", userService.listRoles());
-        return "edit";
-    }
-
-    @PostMapping("edit")
-    public String update(@ModelAttribute("user") User user) {
-//        if (bindingResult.hasErrors()) {
-//            return "edit";
-//        }
-        List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
-        Set<Role> listR = userService.listByRole(listS);
-        user.setRoles(listR);
-        userService.update(user);
         return "redirect:/admin";
     }
 
