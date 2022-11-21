@@ -55,6 +55,7 @@
                                             <th>Firstname</th>
                                             <th>Lastname</th>
                                             <th>Age</th>
+                                            <th>Email</th>
                                             <th>Username</th>
                                             <th>Role</th>
                                         </tr>
@@ -65,6 +66,7 @@
                                             <td th:utext="${userCurrent.firstname}">имя</td>
                                             <td th:utext="${userCurrent.lastname}">фамилия</td>
                                             <td th:utext="${userCurrent.age}">возраст</td>
+                                            <td th:utext="${userCurrent.email}">email</td>
                                             <td th:utext="${userCurrent.username}">логин</td>
                                             <td th:utext="${userCurrent.getRolesToString}">права доступа</td>
                                         </tr>

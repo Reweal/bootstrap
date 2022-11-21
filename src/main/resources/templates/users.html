@@ -68,6 +68,7 @@
                                                         <th>Firstname</th>
                                                         <th>Lastname</th>
                                                         <th>Age</th>
+                                                        <th>Email</th>
                                                         <th>Username</th>
                                                         <th>Role</th>
                                                         <th>Edit</th>
@@ -80,6 +81,7 @@
                                                         <td th:utext="${man.getFirstname()}">имя</td>
                                                         <td th:utext="${man.getLastname()}">фамилия</td>
                                                         <td th:utext="${man.getAge()}">возраст</td>
+                                                        <td th:utext="${man.getEmail()}">email</td>
                                                         <td th:utext="${man.getUsername()}">логин</td>
                                                         <td th:utext="${man.getRolesToString()}">права доступа</td>
                                                         <td>
