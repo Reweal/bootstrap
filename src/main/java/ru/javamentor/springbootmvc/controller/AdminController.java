@@ -31,6 +31,14 @@ public class AdminController {
         model.addAttribute("newUser", new User());
         return "users";
     }
+
+    @GetMapping("/user")
+    public String getUser(Model model, Principal principal) {
+        UserDetails user = userService.loadUserByUsername(principal.getName());
+        model.addAttribute("userCurrent", user);
+        model.addAttribute("listRoles", userService.listRoles());
+        return "userAdmin";
+    }
     //------------------------------------------------------------------------------------------------------------------
     @PostMapping("edit/{id}")
     public String edit(@ModelAttribute("user") User user) {
