@@ -1,6 +1,7 @@
 package ru.javamentor.springbootmvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -12,6 +13,7 @@ import java.security.Principal;
 
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -19,10 +21,14 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-    @GetMapping(value = "/user")
-    public String print(ModelMap model, Principal principal) {
-        User userByName = userService.findByUsername(principal.getName());
-        model.addAttribute("user", userByName);
+    @GetMapping()
+    public String getUser(Model model, Principal principal) {
+//        model.addAttribute("user", userService.findById(id));
+//        model.addAttribute("users", userService.listUsers());
+        UserDetails user = userService.loadUserByUsername(principal.getName());
+        model.addAttribute("userCurrent", user);
+//        model.addAttribute("user", user);
+        model.addAttribute("listRoles", userService.listRoles());
         return "user";
     }
 
