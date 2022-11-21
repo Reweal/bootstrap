@@ -80,6 +80,9 @@ public class UserServiceImpl implements UserService {
         User userPrimary = userDao.findByName(user.getUsername());
         if(userPrimary != null) {return false;}
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
+        List<String> listS = user.getRoles().stream().map(r -> r.getRole()).collect(Collectors.toList());
+        Set<Role> listR = listByRole(listS);
+        user.setRoles(listR);
         userDao.add(user);
         return true;
     }
